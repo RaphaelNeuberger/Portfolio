@@ -61,7 +61,7 @@
     </header>
 
     <!-- ==================== HERO ==================== -->
-    <section id="hero">
+    <section id="hero" class="fade-in">
       <div class="hero-bg-circle"></div>
       <div class="hero-content">
         <div class="hero-left">
@@ -722,7 +722,7 @@
     </section>
 
     <!-- ==================== TESTIMONIALS ==================== -->
-    <section id="testimonials">
+    <section id="testimonials" class="fade-in">
       <div class="testimonials-container">
         <h2 class="section-title" data-i18n="testimonials.title">
           Need a teamplayer?
@@ -768,7 +768,7 @@
     </section>
 
     <!-- ==================== CONTACT ==================== -->
-    <section id="contact">
+    <section id="contact" class="fade-in">
       <div class="contact-container">
         <div class="contact-left">
           <h2 class="section-title" data-i18n="contact.title">Contact</h2>
@@ -824,8 +824,32 @@
       <div class="decorative-circle circle-contact-right"></div>
     </section>
 
+    <!-- ==================== TO-TOP-ARROW ==================== -->
+    <a href="#header" class="to-top-arrow" aria-label="Nach oben scrollen">
+      <svg
+        width="38"
+        height="38"
+        viewBox="0 0 38 38"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <circle
+          cx="19"
+          cy="19"
+          r="18"
+          stroke="#377DFF"
+          stroke-width="2"
+          fill="white" />
+        <path
+          d="M19 26V12M19 12l-6 6M19 12l6 6"
+          stroke="#377DFF"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </a>
+
     <!-- ==================== FOOTER ==================== -->
-    <footer>
+    <footer class="fade-in">
       <div class="footer-container">
         <a href="#" class="logo footer-logo">
           <svg
@@ -905,9 +929,15 @@
         </div>
       </div>
       <p class="footer-imprint">
-        <a href="#" data-i18n="footer.legal">Legal Notice</a>
+        <a href="legalnotice.html" data-i18n="footer.legal">Legal Notice</a>
+        <span style="margin: 0 8px">|</span>
+        <a href="privacypolicy.html" data-i18n="footer.privacy"
+          >Privacy Policy</a
+        >
       </p>
     </footer>
     <script src="js/headerScroll.js"></script>
+    <script src="js/formValidation.js"></script>
+    <script src="js/animations.js"></script>
   </body>
 </html>

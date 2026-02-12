@@ -1,3 +1,8 @@
+/**
+ * Translation object for the internationalization (i18n) of the site.
+ * Contains all texts for German (de) and English (en).
+ * @type {Object.<string, Object.<string, string>>}
+ */
 const translations = {
   en: {
     "nav.about": "About me",
@@ -111,12 +116,21 @@ const translations = {
   },
 };
 
+/**
+ * Currently selected language ("en" or "de").
+ * @type {string}
+ */
 let currentLang = "en";
 
+/**
+ * Sets the language of the page and updates all i18n texts.
+ * @param {string} lang - Language code ("en" or "de").
+ */
 function setLanguage(lang) {
   currentLang = lang;
   document.documentElement.lang = lang;
 
+  // Translate all elements with data-i18n
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.getAttribute("data-i18n");
     if (translations[lang][key]) {
@@ -124,6 +138,7 @@ function setLanguage(lang) {
     }
   });
 
+  // Translate all elements with data-i18n-html
   document.querySelectorAll("[data-i18n-html]").forEach((el) => {
     const key = el.getAttribute("data-i18n-html");
     if (translations[lang][key]) {
@@ -131,6 +146,7 @@ function setLanguage(lang) {
     }
   });
 
+  // Translate all placeholders
   document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
     const key = el.getAttribute("data-i18n-placeholder");
     if (translations[lang][key]) {
@@ -138,6 +154,7 @@ function setLanguage(lang) {
     }
   });
 
+  // Activate the current language in the toggle
   const toggleSpans = document.querySelectorAll(
     ".lang-toggle span:not(.separator)",
   );
@@ -149,7 +166,12 @@ function setLanguage(lang) {
   });
 }
 
+/**
+ * Initializes the language toggle and sets event listeners for switching.
+ * Runs after DOMContentLoaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
+  // Find all language toggle elements
   const toggleSpans = document.querySelectorAll(
     ".lang-toggle span:not(.separator)",
   );
