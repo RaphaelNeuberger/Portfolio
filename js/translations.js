@@ -3,18 +3,19 @@
  * Contains all texts for German (de) and English (en).
  * @type {Object.<string, Object.<string, string>>}
  */
-const translations = {
+window.translations = {
   en: {
     "nav.about": "About me",
     "nav.skills": "Skill set",
     "nav.work": "My work",
+    "nav.contact": "Contact",
     "hero.hello": "Hello! I am Raphael",
     "about.title": "Let's work<br/>together",
     "about.iam": "I am",
     "about.text1":
-      "Write some information about yourself that is IT related. Why are you passionate about programming? What is your source of inspiration for improving your coding skills? Share a desire to learn new technologies.",
+      "I am a passionate Frontend Developer with a strong focus on creating intuitive and user-friendly web applications. My journey in programming is driven by the constant pursuit of learning new technologies and frameworks. I believe in writing clean, maintainable code that not only works but also makes a difference in users' daily lives.",
     "about.text2":
-      "Describe your approach to problem solving. Do you learn from each challenge to find the most efficient or elegant solution? You can include some key attributes such as analytical thinking, creativity, persistence and collaboration.",
+      "My approach to problem-solving is rooted in analytical thinking and creativity. I enjoy breaking down complex challenges into manageable parts and finding elegant solutions. Through collaboration and persistence, I continuously learn from every project, always striving to improve both my technical skills and my ability to deliver high-quality results.",
     "about.btn": "Send a message",
     "about.badge.location": "located in<br/>Munich",
     "about.badge.remote": "open to work<br/>remote",
@@ -29,9 +30,9 @@ const translations = {
     "work.join.desc":
       "Task manager inspired by the Kanban system. Create and organize tasks using drag and drop functions, assign users and categories.",
     "work.pollo.desc":
-      "A jump, run and throw game based on object-oriented approach. Help Pepe to find coins and tabasco bottles to fight against the crazy hen.",
+      "Jump, run and throw game based on object-oriented approach. Help Pepe to find coins and tabasco sauce to fight against the crazy hen.",
     "work.bubble.desc":
-      "A Slack-Clone (Chat-Application/Instant-Messanging-System) modeling using POUCH.io/CouchDB.",
+      "A Slack clone (chat application/instant messaging system) modeled using Firebase. Communicate in channels and direct messages.",
     "work.pokedex.desc":
       "Based on the PokéAPI a simple library that provides and catalogs pokémon information.",
     "testimonials.title": "Need a teamplayer?",
@@ -55,21 +56,28 @@ const translations = {
     "contact.form.email": "Your email",
     "contact.form.message": "Your message",
     "contact.form.privacy":
-      'I\'ve read the <a href="#">privacy policy</a> and agree to the processing of my data as outlined.',
+      'I\'ve read the <a href="privacypolicy.html">privacy policy</a> and agree to the processing of my data as outlined.',
     "contact.form.btn": "Say Hello ;)",
+    "contact.form.error.name": "Please enter your name.",
+    "contact.form.error.email": "Please enter a valid email address.",
+    "contact.form.error.message": "Please enter a message.",
+    "contact.form.sending": "Sending...",
+    "contact.form.success": "Thank you for your message!",
     "footer.legal": "Legal Notice",
+    "footer.privacy": "Privacy Policy",
   },
   de: {
     "nav.about": "Über mich",
     "nav.skills": "Fähigkeiten",
     "nav.work": "Meine Arbeit",
+    "nav.contact": "Kontakt",
     "hero.hello": "Hallo! Ich bin Raphael",
     "about.title": "Lass uns zusammen arbeiten",
     "about.iam": "Ich bin",
     "about.text1":
-      "Schreibe einige Informationen über dich, die IT-bezogen sind. Warum begeistert dich das Programmieren? Was ist deine Inspirationsquelle, um deine Coding-Skills zu verbessern? Teile deinen Wunsch, neue Technologien zu erlernen.",
+      "Ich bin ein leidenschaftlicher Frontend-Entwickler mit einem starken Fokus auf die Entwicklung intuitiver und benutzerfreundlicher Webanwendungen. Meine Reise in der Programmierung wird durch das ständige Streben nach dem Erlernen neuer Technologien und Frameworks angetrieben. Ich glaube an sauberen, wartbaren Code, der nicht nur funktioniert, sondern auch einen Unterschied im Alltag der Nutzer macht.",
     "about.text2":
-      "Beschreibe deinen Ansatz zur Problemlösung. Lernst du aus jeder Herausforderung, um die effizienteste oder eleganteste Lösung zu finden? Du kannst Schlüsselattribute wie analytisches Denken, Kreativität, Ausdauer und Zusammenarbeit einbeziehen.",
+      "Mein Ansatz zur Problemlösung basiert auf analytischem Denken und Kreativität. Ich genieße es, komplexe Herausforderungen in überschaubare Teile zu zerlegen und elegante Lösungen zu finden. Durch Zusammenarbeit und Ausdauer lerne ich kontinuierlich aus jedem Projekt und strebe danach, sowohl meine technischen Fähigkeiten als auch meine Fähigkeit, qualitativ hochwertige Ergebnisse zu liefern, zu verbessern.",
     "about.btn": "Nachricht senden",
     "about.badge.location": "Standort<br/>München",
     "about.badge.remote": "offen für<br/>Remote-Arbeit",
@@ -110,9 +118,15 @@ const translations = {
     "contact.form.email": "Deine E-Mail",
     "contact.form.message": "Deine Nachricht",
     "contact.form.privacy":
-      'Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten wie beschrieben zu.',
+      'Ich habe die <a href="privacypolicy.html">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten wie beschrieben zu.',
     "contact.form.btn": "Sag Hallo ;)",
+    "contact.form.error.name": "Bitte gib deinen Namen ein.",
+    "contact.form.error.email": "Bitte gib eine gültige E-Mail-Adresse ein.",
+    "contact.form.error.message": "Bitte gib eine Nachricht ein.",
+    "contact.form.sending": "Wird gesendet...",
+    "contact.form.success": "Danke für deine Nachricht!",
     "footer.legal": "Impressum",
+    "footer.privacy": "Datenschutzerklärung",
   },
 };
 
@@ -167,11 +181,9 @@ function setLanguage(lang) {
 }
 
 /**
- * Initializes the language toggle and sets event listeners for switching.
- * Runs after DOMContentLoaded.
+ * Initializes the language toggle event listeners.
  */
-document.addEventListener("DOMContentLoaded", () => {
-  // Find all language toggle elements
+function initLanguageToggle() {
   const toggleSpans = document.querySelectorAll(
     ".lang-toggle span:not(.separator)",
   );
@@ -183,4 +195,32 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+}
+
+/**
+ * Initializes the language toggle and sets event listeners for switching.
+ * Waits for header to be loaded before attaching event listeners.
+ */
+window.addEventListener("headerLoaded", () => {
+  initLanguageToggle();
+  // Apply current language to newly loaded header
+  setLanguage(currentLang);
+});
+
+/**
+ * Apply translations to footer when it's loaded.
+ */
+window.addEventListener("footerLoaded", () => {
+  // Apply current language to newly loaded footer
+  setLanguage(currentLang);
+});
+
+// Fallback: If header is already loaded (e.g., on page without include)
+document.addEventListener("DOMContentLoaded", () => {
+  // Wait a bit for includes to load, then check again
+  setTimeout(() => {
+    if (document.querySelector(".lang-toggle")) {
+      initLanguageToggle();
+    }
+  }, 100);
 });

@@ -1,0 +1,51 @@
+/* =============================================
+   VARIABLES & RESET
+   ============================================= */
+:root {
+  --blue: #001860;
+  --blue-dark: #000f40;
+  --blue-light: #1a3278;
+  --blue-gradient: linear-gradient(135deg, #001860 0%, #1a3278 100%);
+  --white: #ffffff;
+  --dark: #1a1a2e;
+  --gray: #6b6b7b;
+  --gray-light: #e8e8ec;
+  --font-heading: "Syne", sans-serif;
+  --font-body: "Overpass", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark);
+  background-color: var(--white);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}

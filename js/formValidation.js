@@ -35,14 +35,68 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * Validates the name field.
+   * Gets translated text for the current language.
+   * @param {string} key - Translation key.
+   * @returns {string} Translated text.
+   */
+  function getTranslation(key) {
+    const lang = document.documentElement.lang || "en";
+
+    // Check if translations are available
+    if (!window.translations) {
+      console.warn("Translations not loaded yet");
+      return key;
+    }
+
+    if (!window.translations[lang]) {
+      console.warn(`Language '${lang}' not found in translations`);
+      return key;
+    }
+
+    if (!window.translations[lang][key]) {
+      console.warn(`Translation key '${key}' not found for language '${lang}'`);
+      return key;
+    }
+
+    return window.translations[lang][key];
+  }
+
+  /**
+   * Checks if name is valid (without showing error).
+   * @returns {boolean} true if valid, otherwise false.
+   */
+  function isNameValid() {
+    const val = nameInput.value.trim();
+    return val.length >= 2;
+  }
+
+  /**
+   * Checks if email is valid (without showing error).
+   * @returns {boolean} true if valid, otherwise false.
+   */
+  function isEmailValid() {
+    const val = emailInput.value.trim();
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(val);
+  }
+
+  /**
+   * Checks if message is valid (without showing error).
+   * @returns {boolean} true if valid, otherwise false.
+   */
+  function isMessageValid() {
+    const val = messageInput.value.trim();
+    return val.length >= 5;
+  }
+
+  /**
+   * Validates the name field and shows error message.
    * @returns {boolean} true if valid, otherwise false.
    */
   function validateName() {
-    const val = nameInput.value.trim();
     const el = createFeedbackEl(nameInput);
-    if (val.length < 2) {
-      el.textContent = "Bitte gib deinen Namen ein.";
+    if (!isNameValid()) {
+      el.textContent = getTranslation("contact.form.error.name");
       return false;
     }
     el.textContent = "";
@@ -50,15 +104,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * Validates the email field.
+   * Validates the email field and shows error message.
    * @returns {boolean} true if valid, otherwise false.
    */
   function validateEmail() {
-    const val = emailInput.value.trim();
     const el = createFeedbackEl(emailInput);
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!re.test(val)) {
-      el.textContent = "Bitte gib eine gültige E-Mail-Adresse ein.";
+    if (!isEmailValid()) {
+      el.textContent = getTranslation("contact.form.error.email");
       return false;
     }
     el.textContent = "";
@@ -66,14 +118,13 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   /**
-   * Validates the message field.
+   * Validates the message field and shows error message.
    * @returns {boolean} true if valid, otherwise false.
    */
   function validateMessage() {
-    const val = messageInput.value.trim();
     const el = createFeedbackEl(messageInput);
-    if (val.length < 5) {
-      el.textContent = "Bitte gib eine Nachricht ein.";
+    if (!isMessageValid()) {
+      el.textContent = getTranslation("contact.form.error.message");
       return false;
     }
     el.textContent = "";
@@ -90,14 +141,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   /**
    * Checks the entire form for validity and enables/disables the submit button.
+   * Does NOT show error messages.
    * @returns {boolean} true if the form is valid, otherwise false.
    */
   function checkForm() {
     const valid =
-      validateName() &&
-      validateEmail() &&
-      validateMessage() &&
-      validatePrivacy();
+      isNameValid() && isEmailValid() && isMessageValid() && validatePrivacy();
     submitBtn.disabled = !valid;
     return valid;
   }
@@ -113,14 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     if (!checkForm()) return;
     submitBtn.disabled = true;
-    submitBtn.textContent = "Wird gesendet...";
+    submitBtn.textContent = getTranslation("contact.form.sending");
     setTimeout(function () {
-      submitBtn.textContent = "Say Hello ;)";
+      submitBtn.textContent = getTranslation("contact.form.btn");
       form.reset();
       Array.from(form.querySelectorAll(".input-feedback")).forEach(
         (el) => (el.textContent = ""),
       );
-      alert("Danke für deine Nachricht!");
+      alert(getTranslation("contact.form.success"));
       submitBtn.disabled = false;
     }, 1200);
   });
