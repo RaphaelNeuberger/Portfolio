@@ -48,7 +48,6 @@ document.addEventListener("DOMContentLoaded", function () {
     includeHTML("#footer-include", "footer.html", function () {
       // Trigger custom event when footer is loaded
       window.dispatchEvent(new CustomEvent("footerLoaded"));
-      console.log("Footer loaded successfully");
     });
   }
 });
