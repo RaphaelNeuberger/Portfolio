@@ -1,8 +1,5 @@
 // Form validation for contact form (onBlur, button enable, feedback)
-/**
- * Initializes form validation and feedback for the contact form.
- * Adds event listeners for validation, button enable, and feedback.
- */
+
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.querySelector(".contact-form");
   if (!form) return;
@@ -13,167 +10,162 @@ document.addEventListener("DOMContentLoaded", function () {
   const privacyInput = form.querySelector('input[name="privacy"]');
   const submitBtn = form.querySelector('button[type="submit"]');
 
-  // Feedback-Elemente
-  /**
-   * Creates or finds a feedback element for an input field.
-   * @param {HTMLInputElement|HTMLTextAreaElement} input - The input field.
-   * @returns {HTMLElement} The feedback element.
-   */
-  function createFeedbackEl(input) {
-    let el = input.parentNode.querySelector(".input-feedback");
-    if (!el) {
-      el = document.createElement("div");
-      el.className = "input-feedback";
-      el.style.fontSize = "0.95em";
-      el.style.color = "#e74c3c";
-      el.style.minHeight = "18px";
-      el.style.margin = "2px 0 0 0";
-      el.style.transition = "opacity 0.15s";
-      input.parentNode.appendChild(el);
-    }
-    return el;
+  addFeedbackElements();
+  addEventListeners();
+  checkForm();
+
+  function addFeedbackElements() {
+    [nameInput, emailInput, messageInput].forEach(function (input) {
+      if (!input.parentNode.querySelector(".input-feedback")) {
+        const el = document.createElement("div");
+        el.className = "input-feedback";
+        input.parentNode.appendChild(el);
+      }
+    });
   }
 
-  /**
-   * Gets translated text for the current language.
-   * @param {string} key - Translation key.
-   * @returns {string} Translated text.
-   */
+  function getFeedbackEl(input) {
+    return input.parentNode.querySelector(".input-feedback");
+  }
+
   function getTranslation(key) {
     const lang = document.documentElement.lang || "en";
-
-    // Check if translations are available
-    if (!window.translations) {
-      console.warn("Translations not loaded yet");
-      return key;
-    }
-
-    if (!window.translations[lang]) {
-      console.warn(`Language '${lang}' not found in translations`);
-      return key;
-    }
-
-    if (!window.translations[lang][key]) {
-      console.warn(`Translation key '${key}' not found for language '${lang}'`);
-      return key;
-    }
-
-    return window.translations[lang][key];
+    if (!window.translations || !window.translations[lang]) return key;
+    return window.translations[lang][key] || key;
   }
 
-  /**
-   * Checks if name is valid (without showing error).
-   * @returns {boolean} true if valid, otherwise false.
-   */
   function isNameValid() {
-    const val = nameInput.value.trim();
-    return val.length >= 2;
+    return nameInput.value.trim().length >= 2;
   }
 
-  /**
-   * Checks if email is valid (without showing error).
-   * @returns {boolean} true if valid, otherwise false.
-   */
   function isEmailValid() {
-    const val = emailInput.value.trim();
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(val);
+    return re.test(emailInput.value.trim());
   }
 
-  /**
-   * Checks if message is valid (without showing error).
-   * @returns {boolean} true if valid, otherwise false.
-   */
   function isMessageValid() {
-    const val = messageInput.value.trim();
-    return val.length >= 5;
+    return messageInput.value.trim().length >= 5;
   }
 
-  /**
-   * Validates the name field and shows error message.
-   * @returns {boolean} true if valid, otherwise false.
-   */
+  function validateField(input, isValid, errorKey) {
+    const el = getFeedbackEl(input);
+    el.textContent = isValid() ? "" : getTranslation(errorKey);
+    return isValid();
+  }
+
   function validateName() {
-    const el = createFeedbackEl(nameInput);
-    if (!isNameValid()) {
-      el.textContent = getTranslation("contact.form.error.name");
-      return false;
-    }
-    el.textContent = "";
-    return true;
+    return validateField(nameInput, isNameValid, "contact.form.error.name");
   }
 
-  /**
-   * Validates the email field and shows error message.
-   * @returns {boolean} true if valid, otherwise false.
-   */
   function validateEmail() {
-    const el = createFeedbackEl(emailInput);
-    if (!isEmailValid()) {
-      el.textContent = getTranslation("contact.form.error.email");
-      return false;
-    }
-    el.textContent = "";
-    return true;
+    return validateField(emailInput, isEmailValid, "contact.form.error.email");
   }
 
-  /**
-   * Validates the message field and shows error message.
-   * @returns {boolean} true if valid, otherwise false.
-   */
   function validateMessage() {
-    const el = createFeedbackEl(messageInput);
-    if (!isMessageValid()) {
-      el.textContent = getTranslation("contact.form.error.message");
-      return false;
-    }
-    el.textContent = "";
-    return true;
+    return validateField(messageInput, isMessageValid, "contact.form.error.message");
   }
 
-  /**
-   * Checks if the privacy policy was accepted.
-   * @returns {boolean} true if accepted, otherwise false.
-   */
-  function validatePrivacy() {
-    return privacyInput.checked;
-  }
-
-  /**
-   * Checks the entire form for validity and enables/disables the submit button.
-   * Does NOT show error messages.
-   * @returns {boolean} true if the form is valid, otherwise false.
-   */
   function checkForm() {
     const valid =
-      isNameValid() && isEmailValid() && isMessageValid() && validatePrivacy();
+      isNameValid() && isEmailValid() && isMessageValid() && privacyInput.checked;
     submitBtn.disabled = !valid;
     return valid;
   }
 
-  nameInput.addEventListener("blur", validateName);
-  emailInput.addEventListener("blur", validateEmail);
-  messageInput.addEventListener("blur", validateMessage);
-  privacyInput.addEventListener("change", checkForm);
-  form.addEventListener("input", checkForm);
+  function addEventListeners() {
+    nameInput.addEventListener("blur", validateName);
+    emailInput.addEventListener("blur", validateEmail);
+    messageInput.addEventListener("blur", validateMessage);
+    privacyInput.addEventListener("change", checkForm);
+    form.addEventListener("input", checkForm);
+    form.addEventListener("submit", handleSubmit);
+  }
 
-  // Feedback nach Versand
-  form.addEventListener("submit", function (e) {
+  function getFormData() {
+    return {
+      name: nameInput.value.trim(),
+      email: emailInput.value.trim(),
+      message: messageInput.value.trim(),
+    };
+  }
+
+  function showSuccessMessage() {
+    let msg = form.querySelector(".form-success-message");
+    if (!msg) {
+      msg = document.createElement("div");
+      msg.className = "form-success-message";
+      form.appendChild(msg);
+    }
+    msg.textContent = getTranslation("contact.form.success");
+    msg.classList.add("visible");
+    setTimeout(function () { msg.classList.remove("visible"); }, 4000);
+  }
+
+  function showErrorMessage() {
+    let msg = form.querySelector(".form-success-message");
+    if (!msg) {
+      msg = document.createElement("div");
+      msg.className = "form-success-message";
+      form.appendChild(msg);
+    }
+    msg.textContent = getTranslation("contact.form.error");
+    msg.style.color = "#ff6b6b";
+    msg.classList.add("visible");
+    setTimeout(function () {
+      msg.classList.remove("visible");
+      msg.style.color = "";
+    }, 4000);
+  }
+
+  function handleSuccess() {
+    form.reset();
+    clearAllFeedback();
+    showSuccessMessage();
+  }
+
+  function clearAllFeedback() {
+    form.querySelectorAll(".input-feedback").forEach(function (el) {
+      el.textContent = "";
+    });
+  }
+
+  function resetButton() {
+    submitBtn.textContent = getTranslation("contact.form.btn");
+    submitBtn.disabled = false;
+    checkForm();
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
     if (!checkForm()) return;
     submitBtn.disabled = true;
     submitBtn.textContent = getTranslation("contact.form.sending");
-    setTimeout(function () {
-      submitBtn.textContent = getTranslation("contact.form.btn");
-      form.reset();
-      Array.from(form.querySelectorAll(".input-feedback")).forEach(
-        (el) => (el.textContent = ""),
-      );
-      alert(getTranslation("contact.form.success"));
-      submitBtn.disabled = false;
-    }, 1200);
-  });
+    sendForm(getFormData());
+  }
 
-  // Initial-Check
-  checkForm();
+  function sendForm(data) {
+    fetch("phpMailer.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then(parseResponse)
+      .then(handleResponse)
+      .catch(showErrorMessage)
+      .finally(resetButton);
+  }
+
+  function parseResponse(response) {
+    return response.json().then(function (json) {
+      return { ok: response.ok, json: json };
+    });
+  }
+
+  function handleResponse(result) {
+    if (result.ok && result.json.success) {
+      handleSuccess();
+    } else {
+      showErrorMessage();
+    }
+  }
 });

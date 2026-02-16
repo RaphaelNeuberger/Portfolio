@@ -40,7 +40,7 @@ footer {
 .footer-imprint a {
   color: rgba(255, 255, 255, 0.4);
   font-size: 13px;
-  transition: color 0.3s ease;
+  transition: color 100ms ease;
 }
 
 .footer-imprint a:hover {
@@ -54,7 +54,7 @@ footer {
 
 .footer-socials a {
   color: rgba(255, 255, 255, 0.6);
-  transition: color 0.3s ease;
+  transition: color 100ms ease;
 }
 
 .footer-socials a:hover {

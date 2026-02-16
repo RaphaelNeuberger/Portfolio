@@ -30,7 +30,7 @@
   font-size: 16px;
   font-weight: 400;
   color: var(--dark);
-  transition: color 0.3s ease;
+  transition: color 100ms ease;
   letter-spacing: 0.5px;
 }
 
@@ -55,7 +55,7 @@
 
 .lang-toggle span:not(.separator) {
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: opacity 100ms ease;
 }
 
 .lang-toggle span:not(.separator):hover {
@@ -142,7 +142,7 @@
   font-size: 24px;
   font-weight: 600;
   color: var(--dark);
-  transition: color 0.3s ease;
+  transition: color 100ms ease;
 }
 
 .mobile-nav-links a:hover {
@@ -167,7 +167,7 @@
 
 .mobile-lang-toggle span:not(.separator) {
   cursor: pointer;
-  transition: opacity 0.3s ease;
+  transition: opacity 100ms ease;
 }
 
 .mobile-lang-toggle span:not(.separator):hover {

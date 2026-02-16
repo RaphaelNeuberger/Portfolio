@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  // Fade-In-Animationen für Sektionen
+  // Fade-in animations for sections
   /**
    * IntersectionObserver for fade-in animations of sections.
    * Adds the 'visible' class to a section as soon as it appears in the viewport.

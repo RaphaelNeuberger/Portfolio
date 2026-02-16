@@ -63,8 +63,33 @@ window.translations = {
     "contact.form.error.message": "Please enter a message.",
     "contact.form.sending": "Sending...",
     "contact.form.success": "Thank you for your message!",
+    "contact.form.error": "Something went wrong. Please try again later.",
     "footer.legal": "Legal Notice",
     "footer.privacy": "Privacy Policy",
+    "legal.title": "Legal Notice",
+    "legal.imprint": "Imprint",
+    "legal.owner": "Owner:",
+    "legal.board": "Explanatory Board",
+    "legal.acceptance": "Acceptance of terms",
+    "legal.acceptance.text":
+      "By accessing and using this website, you acknowledge and agree to the following terms and conditions, and any applicable laws and regulations. If you do not agree, please do not use this site.",
+    "legal.scope": "Scope and accuracy of the presented information",
+    "legal.scope.text":
+      "The information on this website is for general information purposes only. While we strive for accuracy, we make no warranties of any kind about the completeness, reliability, or accuracy of this information.",
+    "legal.rights": "Proprietary rights",
+    "legal.rights.text":
+      "All content, images, and graphics on this site are protected by copyright and may not be used without permission.",
+    "legal.use": "Use of the website",
+    "legal.use.text":
+      "Use of this website and its content is only for informational purposes. Unauthorised use may result in legal action.",
+    "legal.disclaimer": "Disclaimer of warranties and limitation of liability",
+    "legal.disclaimer.text":
+      "We disclaim any liability, whether direct or indirect, for any loss or damage resulting from the use of this website or its content.",
+    "legal.date": "Date: February 2026",
+    "privacy.title": "Privacy Policy",
+    "privacy.text":
+      "This website respects your privacy. No personal data is stored or processed beyond what is necessary for contact and communication.<br/>For detailed information about data protection, please contact the site owner.<br/>By using this site, you agree to the privacy terms outlined here.",
+    "privacy.back": "Back to Home",
   },
   de: {
     "nav.about": "Über mich",
@@ -125,8 +150,33 @@ window.translations = {
     "contact.form.error.message": "Bitte gib eine Nachricht ein.",
     "contact.form.sending": "Wird gesendet...",
     "contact.form.success": "Danke für deine Nachricht!",
+    "contact.form.error": "Etwas ist schiefgelaufen. Bitte versuche es später erneut.",
     "footer.legal": "Impressum",
     "footer.privacy": "Datenschutzerklärung",
+    "legal.title": "Impressum",
+    "legal.imprint": "Impressum",
+    "legal.owner": "Inhaber:",
+    "legal.board": "Verantwortliche Stelle",
+    "legal.acceptance": "Akzeptanz der Bedingungen",
+    "legal.acceptance.text":
+      "Durch den Zugriff auf und die Nutzung dieser Website erkennen Sie die folgenden Geschäftsbedingungen sowie alle geltenden Gesetze und Vorschriften an. Wenn Sie nicht einverstanden sind, nutzen Sie diese Seite bitte nicht.",
+    "legal.scope": "Umfang und Richtigkeit der dargestellten Informationen",
+    "legal.scope.text":
+      "Die Informationen auf dieser Website dienen nur allgemeinen Informationszwecken. Obwohl wir uns um Genauigkeit bemühen, übernehmen wir keinerlei Gewähr für die Vollständigkeit, Zuverlässigkeit oder Richtigkeit dieser Informationen.",
+    "legal.rights": "Eigentumsrechte",
+    "legal.rights.text":
+      "Alle Inhalte, Bilder und Grafiken auf dieser Seite sind urheberrechtlich geschützt und dürfen nicht ohne Genehmigung verwendet werden.",
+    "legal.use": "Nutzung der Website",
+    "legal.use.text":
+      "Die Nutzung dieser Website und ihrer Inhalte dient ausschließlich Informationszwecken. Eine unbefugte Nutzung kann rechtliche Schritte nach sich ziehen.",
+    "legal.disclaimer": "Haftungsausschluss und Haftungsbeschränkung",
+    "legal.disclaimer.text":
+      "Wir lehnen jede Haftung, ob direkt oder indirekt, für Verluste oder Schäden ab, die aus der Nutzung dieser Website oder ihrer Inhalte entstehen.",
+    "legal.date": "Datum: Februar 2026",
+    "privacy.title": "Datenschutzerklärung",
+    "privacy.text":
+      "Diese Website respektiert Ihre Privatsphäre. Es werden keine personenbezogenen Daten gespeichert oder verarbeitet, die über das für Kontakt und Kommunikation Notwendige hinausgehen.<br/>Für detaillierte Informationen zum Datenschutz wenden Sie sich bitte an den Seitenbetreiber.<br/>Durch die Nutzung dieser Seite stimmen Sie den hier dargelegten Datenschutzbestimmungen zu.",
+    "privacy.back": "Zurück zur Startseite",
   },
 };
 
@@ -134,7 +184,7 @@ window.translations = {
  * Currently selected language ("en" or "de").
  * @type {string}
  */
-let currentLang = "en";
+let currentLang = localStorage.getItem("lang") || "en";
 
 /**
  * Sets the language of the page and updates all i18n texts.
@@ -142,6 +192,7 @@ let currentLang = "en";
  */
 function setLanguage(lang) {
   currentLang = lang;
+  localStorage.setItem("lang", lang);
   document.documentElement.lang = lang;
 
   // Translate all elements with data-i18n
@@ -215,8 +266,9 @@ window.addEventListener("footerLoaded", () => {
   setLanguage(currentLang);
 });
 
-// Fallback: If header is already loaded (e.g., on page without include)
+// Apply saved language on DOMContentLoaded and initialize toggle if available
 document.addEventListener("DOMContentLoaded", () => {
+  setLanguage(currentLang);
   // Wait a bit for includes to load, then check again
   setTimeout(() => {
     if (document.querySelector(".lang-toggle")) {

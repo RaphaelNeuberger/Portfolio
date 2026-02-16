@@ -1,5 +1,5 @@
 /* =============================================
-   RESPONSIVE - MEDIA QUERIES
+   RESPONSIVE - TABLET & MOBILE
    ============================================= */
 
 /* ===== TABLET (1024px) ===== */
@@ -51,7 +51,6 @@
 
 /* ===== MOBILE (max-width: 768px) ===== */
 @media (max-width: 768px) {
-  /* Header */
   #header {
     padding: 16px 24px;
   }
@@ -76,14 +75,13 @@
     background: var(--dark);
   }
 
-  /* Hero Section */
   #hero {
-    min-height: unset;
+    min-height: 100vh;
   }
 
   .hero-content {
     flex-direction: column;
-    min-height: unset;
+    min-height: 100vh;
   }
 
   .hero-left {
@@ -167,7 +165,6 @@
     color: var(--blue);
   }
 
-  /* Sections Padding */
   #about,
   #skills,
   #work,
@@ -176,7 +173,6 @@
     padding: 60px 24px;
   }
 
-  /* Section Titles */
   .section-title-large {
     font-size: 40px;
     text-align: center;
@@ -198,7 +194,6 @@
     font-size: 28px;
   }
 
-  /* About Section */
   .about-left {
     text-align: center;
   }
@@ -222,7 +217,6 @@
     margin: 0 auto;
   }
 
-  /* Contact Section */
   .contact-left {
     text-align: center;
   }
@@ -236,7 +230,6 @@
     font-size: 24px;
   }
 
-  /* Skills */
   .skills-row {
     gap: 24px 32px;
     flex-wrap: wrap;
@@ -247,7 +240,6 @@
     height: 56px;
   }
 
-  /* Footer */
   footer {
     padding: 32px 24px 20px;
   }
@@ -258,7 +250,6 @@
     text-align: center;
   }
 
-  /* Hide Decorative Circles */
   .decorative-circle,
   .work-circle {
     display: none;
@@ -268,7 +259,6 @@
     opacity: 0.08;
   }
 
-  /* To-Top-Arrow & Legal Pages */
   .to-top-arrow {
     right: 16px;
     bottom: 16px;
@@ -280,6 +270,7 @@
     width: 24px;
     height: 24px;
   }
+
   .legal-title,
   .privacy-container h1 {
     font-size: 36px;
@@ -296,167 +287,5 @@
   .privacy-container,
   .legal-content-container {
     padding: 100px 24px 60px;
-  }
-}
-
-/* ===== SMALL MOBILE (max-width: 480px) ===== */
-@media (max-width: 480px) {
-  .hero-text h1 {
-    font-size: 36px;
-    letter-spacing: -1px;
-  }
-
-  .hero-hello {
-    font-size: 18px;
-  }
-
-  .hero-image-wrapper {
-    width: 240px;
-    height: 320px;
-  }
-
-  /* Section Titles */
-  .section-title-large,
-  .section-title {
-    font-size: 32px;
-  }
-
-  #skills .section-title {
-    font-size: 32px;
-    margin-bottom: 40px;
-  }
-
-  .testimonials-container .section-title {
-    font-size: 28px;
-  }
-
-  .contact-left .section-title {
-    font-size: 32px;
-  }
-
-  /* Header & Sections */
-  #header {
-    padding: 12px 16px;
-  }
-
-  .logo svg {
-    width: 32px;
-    height: 32px;
-  }
-  #about,
-  #skills,
-  #work,
-  #testimonials,
-  #contact {
-    padding: 40px 16px;
-  }
-  .iam-label {
-    font-size: 20px;
-  }
-
-  .about-right p,
-  .work-header p {
-    font-size: 16px;
-  }
-
-  .testimonial-card h4 {
-    font-size: 18px;
-  }
-
-  .testimonial-role {
-    font-size: 12px;
-  }
-
-  .testimonial-text {
-    font-size: 14px;
-  }
-
-  .project-info h3 {
-    font-size: 24px;
-  }
-
-  .project-tech {
-    font-size: 13px;
-  }
-
-  .project-desc,
-  .contact-left p {
-    font-size: 15px;
-  }
-
-  .contact-left h3 {
-    font-size: 20px;
-  }
-
-  /* Legal Pages */
-  .legal-title,
-  .privacy-container h1 {
-    font-size: 28px;
-  }
-
-  .legal-section h2 {
-    font-size: 20px;
-  }
-
-  .legal-section h3 {
-    font-size: 16px;
-  }
-
-  .privacy-container,
-  .legal-content-container {
-    padding: 80px 16px 40px;
-  }
-
-  /* Footer & Buttons */
-  footer {
-    padding: 24px 16px 16px;
-  }
-
-  .footer-copy {
-    font-size: 13px;
-  }
-
-  .btn {
-    font-size: 14px;
-    padding: 12px 24px;
-  }
-
-  .btn-primary {
-    padding: 14px 28px;
-  }
-}
-
-/* ===== EXTRA SMALL (max-width: 360px) ===== */
-@media (max-width: 360px) {
-  .hero-text h1 {
-    font-size: 32px;
-  }
-
-  .section-title-large,
-  .section-title,
-  #skills .section-title,
-  .contact-left .section-title {
-    font-size: 28px;
-  }
-
-  .testimonials-container .section-title {
-    font-size: 24px;
-  }
-
-  .project-info h3 {
-    font-size: 20px;
-  }
-
-  .contact-left h3 {
-    font-size: 18px;
-  }
-
-  .testimonial-card h4 {
-    font-size: 16px;
-  }
-
-  .hero-image-wrapper {
-    width: 200px;
-    height: 280px;
   }
 }

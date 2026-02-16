@@ -9,7 +9,7 @@
   padding: 14px 32px;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 100ms ease;
   border: none;
 }
 
@@ -45,7 +45,7 @@
   border-radius: 30px;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 100ms ease;
 }
 
 .btn-primary-small:hover {
@@ -66,7 +66,7 @@
   text-decoration: none;
   background: transparent;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 100ms ease;
 }
 
 .btn-outline-dark:hover {
@@ -93,9 +93,9 @@
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.3s,
-    background 0.3s,
-    box-shadow 0.3s;
+    opacity 100ms,
+    background 100ms,
+    box-shadow 100ms;
 }
 
 .to-top-arrow.visible {
